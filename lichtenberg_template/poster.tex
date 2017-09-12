@@ -16,7 +16,7 @@
 %\setbeamertemplate{itemize item}{}
 
 \setbeamertemplate{bibliography item}{}
-
+\usepackage{siunitx}
 \usepackage[
 backend=biber,
 style=authoryear,
@@ -69,6 +69,7 @@ firstinits=true
 \newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{.2em}\addtolength{\labelsep}{.1ex}}{\enditemize}
 
 \title{Sample Title}
+% this is sort of a hack, we use \date to provide the poster number
 \date{P02}
 \author{A. Author\textsuperscript{1}, V. A. Coenen\textsuperscript{2}, C. E. Elger\textsuperscript{1}, M. Soehle\textsuperscript{3} \& F. Mormann\textsuperscript{1}}
 \institute{\textsuperscript{1}Dept. of Epileptology, \textsuperscript{2}Stereotaxy and MR based OR Techniques, Dept. of Neurosurgery, \textsuperscript{3}Dept. of Anaesthesiology and Intensive Care Medicine, University of Bonn, Germany}
@@ -76,179 +77,224 @@ firstinits=true
 \begin{document}
 \begin{frame}[t]
 \begin{columns}[T]
-\begin{column}{.32\linewidth}
+\begin{column}{.49\linewidth} % begin first column
 \begin{block}{Overview}
 \begin{columns}[T]
-\begin{column}{.35\linewidth}
+\begin{column}{.34\linewidth}
 \emph{Background}\vspace{\itemsep}
 \begin{wideitemize}
-\item Item 1
-\item Item 2
-\item 
-\item 
-\item 
+\item Extracellular micro-electrode recordings from the human brain have been feasible for some years
+\item \emph{Spike-sorting} is necessary to identify contributions of individual neurons from raw recordings
+\item Multi-hour single-unit recordings would allow to study important questions regarding both epilepsy (e.g., ictogenesis \parencite{gast_burst_2016}) and cognition (e.g., memory consolidation)
+\item \emph{However}, no tools for the spike-sorting of multi-hour single-unit recordings have been available
 \end{wideitemize}
 \end{column}
-\begin{column}{.52\linewidth}
-\emph{Main research question}
-\begin{wideitemize}
-\item What is your question?
-\end{wideitemize}
-More text!
-
-
-\emph{Secondary research questions}
-
+\begin{column}{.57\linewidth}
 \emph{Approach}
+\begin{wideitemize}
+\item We developed \emph{Combinato}, a data analysis framework for multi-hour single-unit recordings (\cite{niediek_reliable_2016}). This framework handles
+  \begin{wideitemize}
+  \item Artifact rejection
+  \item Automatic spike-sorting
+  \item Guided manual improvement of spike-sorting
+  \end{wideitemize}
+  \item Combinato is based on  spike-sorting in blocks followed by combination of clusters from blocks. Each block is sorted by superparamagnetic clustering \parencite{quian_quiroga_unsupervised_2004}.
+  \end{wideitemize}
+  
+\emph{Evaluation}
+\begin{wideitemize}
+  \item When tested on simulations, Combinato outperformed manual operators of the wide-spread package WaveClus
+  \item On data recorded from the medial temporal lobe of patients to find selective single-unit responses, Combinato again outperformed WaveClus
+\item Combinato was able to track selectively responding single-unit throughout entire nights
+\end{wideitemize}
 
 \end{column}
 \end{columns}
 \end{block}
 
-\begin{block}{Methods}
+
+  \begin{block}{Results: Simulated model data}
+
 \begin{columns}[T]
-\begin{column}{.33\linewidth}
-\emph{Patients}
-\begin{wideitemize}
-\item We obtained micro-electrode recordings from 11~neurosurgical patients undergoing epilepsy monitoring
-\item Patients were implanted with intracerebral micro-electrodes (as in \cite{mormann_latency_2008})
-\item
-\item 
-\end{wideitemize}
+\begin{column}{.95\linewidth}
+\emph{Evaluation on 10-minute simulations}
+        \begin{wideitemize}
+    \item We used published simulated model data \parencite{pedreira_how_2012}, consisting of 95~simulations of 10~minutes duration each.
+    \item Spike-sorting performance was measured by the number of ``hits'', where a hit is a unit consisting of at least 50\% of the spikes of a true unit, and with at most 50\% contamination.
+    \item We compared Combinato's results to published results \parencite{pedreira_how_2012} obtained by manual operators of WaveClus \parencite{quian_quiroga_unsupervised_2004}.
+    \end{wideitemize}
+
+  
+\begin{columns}[T]
+  \begin{column}{.47\linewidth}
+
+    \begin{figure}
+\label{fig:results_sim}
+\begin{center}
+\includegraphics[width=\linewidth]{fig3.png}
+\end{center}
+\caption{\emph{Results for one simulated channel.} \textbf{A}~Automatically selected clusters at different ``temperatures''. \textbf{B}~Performance at default parameters. \textbf{C}~Clusters generated in one simulation. \textbf{D}~Manually splitting unit C1 from C generated another hit.}
+\end{figure}
+\end{column}
+\begin{column}{.48\linewidth}
+
+
+  \begin{figure}
+\label{fig:results_sim}
+\begin{center}
+\includegraphics[width=\linewidth]{params.png}
+\end{center}
+\caption{\emph{Performance at different parameter settings.} Displayed are results for 8~of the 48~parameter settings tested. Asterisks indicate that the percentage of hits is significantly higher than the optimum obtained by \cite{pedreira_how_2012}. The fully automated Combinato outperformed manual operators of WaveClus at 24 of the 48 settings, indicating robustness of our algorithms. \textsuperscript{***}, P < .001; \textsuperscript{**}, P < .01, \textsuperscript{*}, P < .05; n.s., better but not significantly.}
+\end{figure}
 
 \end{column}
-\begin{column}{.55\linewidth}
-\emph{More Info}
+\end{columns}
+
+\vspace{2em}
+\emph{Evaluation on 10-hour simulations}
 \begin{wideitemize}
-\item Anaesthesia was induced solely by a target-controlled infusion of propofol (as in \cite{schnider_influence_1998})
-\item 
+\item We concatenated simulations of 10~minutes duration to produce 19 simulations of 10~hours duration.
+\item To make the task harder, we added drift and Gaussian noise to the concatenated data.
 \end{wideitemize}
+\begin{columns}[T]
+\begin{column}{.47\linewidth}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{fig5.png}
+\end{center}
+\caption{\emph{Simulated neuron with drift and added noise.} The unmodified unit is shown in orange in the bottom panel for comparison.}
+\end{figure}
+\end{column}
+
+\begin{column}{.47\linewidth}
+\begin{figure}
+\begin{center}
+\includegraphics[width=.7\linewidth]{fig6.png}
+\end{center}
+\caption{\emph{Performance at different parameter settings.} \textbf{A}~Numbers of hits for different numbers of units in the simulated data. Four parameter settings were tested. \textbf{B}~Mean and standard deviation for each paramter setting.}
+\end{figure}
+\vspace{-1.6em}
+\end{column}
+\end{columns}
+\end{column}
+\end{columns}
+\end{block}
+
+
+\end{column} %end second poster column
+
+
+\begin{column}{.49\linewidth} % begin second poster column
+\begin{block}{Methods \& Software}
+ % \vspace{-.5em}
+  \begin{columns}[T]
+    \begin{column}{.48\linewidth}
+      \emph{Automated data processing framework}
+      \vspace{-1em}
+  \begin{figure}
+    \includegraphics[width=\textwidth]{fig1.png}
+    \caption{\textbf{Schematic of data processing.} \textbf{A}~Channels without unit activity are excluded. Action potentials are detected after bandpass filtering. \textbf{B}~Detected artifact events are excluded according to three criteria. \textbf{C}~Spike-sorting is performed in parallel in blocks of \num{20000} by ``superparamagnetic clustering'' (\cite{quian_quiroga_unsupervised_2004}). In each block, a second clustering step is  applied to all large clusters. \textbf{D}~Remaining spikes are assigned by Euclidean template matching. \textbf{E}~Artifact clusters are removed. \textbf{F}~Similar clusters are grouped both within each block and across blocks. }
+  \end{figure}
+\end{column}
+\begin{column}{.42\linewidth}
+  \emph{Graphical user interfaces}
+  \vspace{-1em}
+  \begin{figure}
+  \includegraphics[width=.9\textwidth]{css-overview-screenshot.png}\\[1em]
+\caption{\emph{Combinato's data viewer.} Both the raw signal (at several temporal resolutions) as well as the clustering result for each channel are displayed.}
+\end{figure}
+\vspace{-1.9em}
+\begin{figure}
+\includegraphics[width=.9\textwidth]{css-gui-screenshot.png}
+\caption{\emph{Combinato's tool for result inspection.} Several graphical quality metrics are displayed for each cluster. Clusters can be manually discarded or manipulated.}
+\end{figure}
+\vspace{-2em}
 \end{column}
 \end{columns}
 
 \end{block}
 
-\begin{block}{Methods: Micro-electrode Recordings}
+\begin{block}{Results: Recordings from epilepsy patients}
 \begin{columns}[T]
-\begin{column}{.55\linewidth}
+  \begin{column}{.95\linewidth}
+    \vspace{-.5em}
 \emph{Micro-electrode recordings}
 \begin{wideitemize}
-\item Each clinical electrode was equipped with 8~micro-electrodes protruding from its tip
-\item Electrodes were located bilaterally in the hippocampus, amygdala, entorhinal cortex, and parahippocampal cortex
-\item Unit activity was extracted and spike-sorted with a custom program based on wave\_clus \parencite{quian_quiroga_unsupervised_2004}
-\item Please cite Combinato if you used it
-%\item Sampling rate: 32~kHz, effective recording bandwidth: 0.1~Hz to 9~kHz
-\end{wideitemize}
-\end{column}
-\begin{column}{.35\linewidth}
-\begin{figure}
-\label{fig:electrodes}
-\includegraphics[width=.9\linewidth]{../figures/electrodes.png}
-\caption{Schematic drawing of electrode with protruding micro-wires}
-\end{figure}
-\end{column}
-\end{columns}
-\end{block}
+\item Micro-electrode recordings from 10~neurosurgical patients undergoing epilepsy monitoring implanted with intracerebral micro-electrodes (as in \cite{mormann_neurons_2015}).  Electrodes were located bilaterally in the hippocampus, amygdala, entorhinal cortex, and parahippocampal cortex.
 
-
-
-\end{column}
-\begin{column}{.32\linewidth}
-
-\begin{block}{Results}
-\begin{columns}[T]
-\begin{column}{.95\linewidth}
-\emph{Dataset}
-\begin{wideitemize}
-\item Analysis is based on a total of 
-\item Unit distribution: 
 \end{wideitemize}
 
-\emph{Overall effect of}
-\begin{wideitemize}
-\item 
-\end{wideitemize}
-\begin{figure}
-\label{fig:proptimecourse}
-\begin{center}
-\includegraphics[width=.2\linewidth]{../figures/logo-epi.png}
+%\vspace{-1.6em}
+  \begin{columns}[T]
+    \begin{column}{.48\linewidth}
+\begin{figure}[T]
+  \begin{center}
+    \includegraphics[width=\linewidth]{fig7.png}
 \end{center}
-\caption{A bit of a caption}
+\caption{\emph{Result of automatic sorting on one channel with noise.} \textbf{A}~Bandpass filtered data. \textbf{B}~Pre-sorting artifact removal. \textbf{C}~Automatically selected clusters at different temperatures. \textbf{D}~Clusters and artifacts as identified by Combinato. \textbf{E}~Clusters as identified by WaveClus. \textbf{F}~Raster plots from visual stimulus presentation. Cluster D2 responds to all four pictures. Three of the four responses remain undetected when using WaveClus.}
 \end{figure}
-\end{column}
-\end{columns}
-\end{block}
-\begin{block}{Results: More}
-\begin{columns}
-\begin{column}{.95\linewidth}
-More text
+%\vspace{-2em}
 
-\begin{figure}
-\label{fig:severalunits}
-\begin{center}
-  \includegraphics[width=.2\linewidth]{../figures/logo-epi.png}
-\end{center}
-\caption{Yet more text}
+\end{column}
+
+\begin{column}{.48\linewidth}
+\begin{figure}[T]
+  \includegraphics[width=.95\textwidth]{fig10.png}
+  
+\caption{\emph{Examples of neurons tracked over an entire night.}
+\textbf{A}~Stable waveform and response pattern.
+\textbf{B}~Amplitude variations; no response to the written name.
+\textbf{C}~Amplitude shift results in the detection of two different units.
+\textbf{D}~Two resp.~cclusters generated; no response to the written name.
+\textbf{E}~Stable waveform; weak response in the morning.
+\textbf{F}~Solid response in the evening and morning, but with separate units. 
+\textbf{G}~The blue and red clusters both contribute to the response; both tracked with a stable waveform.
+\textbf{H}~The red, blue, and yellow clusters contribute to the response. All three clusters have a stable waveform.
+}
+
 \end{figure}
+%\vspace{-2em}
 \end{column}
 \end{columns}
-\end{block}
-
-
-\end{column}
-
-\begin{column}{.32\linewidth}
-\begin{block}{Results}
-\begin{columns}[T]
-\begin{column}{.95\linewidth}
-\begin{wideitemize}
-\item We defined \emph{loss of consciousness} as
-\item 
-\item 
-\item 
-
-\end{wideitemize}
 
 \end{column}
 \end{columns}
-\vspace{2em}
-
-
-\begin{columns}[T]
-\begin{column}{.45\linewidth}
-\emph{Firing rate at loss of consciousness}
-\begin{wideitemize}
-\item For each patient, we calculated
-\item Variability between patients was high
-\item The relative firing rate is not significantly different from 1 (t-test, P > .27, N = 9)
-\item A possible interpretation is that continued neuronal firing at baseline rate
-\end{wideitemize}
-\end{column}
-\begin{column}{.4\linewidth}
-
-\end{column}
-
-\end{columns}
-\end{block}
-\begin{block}{Further Aims}
-\begin{wideitemize}
-\item
-\item 
-\end{wideitemize}
 \end{block}
 \begin{block}{References}
 \begin{columns}[T]
-\begin{column}{.8\linewidth}
+  \begin{column}{.97\linewidth}
+%    \vspace{-.5em}
+%    \emph{References}
 \setbeamercolor{normal text}{fg=black}
 \setbeamercolor{structure}{fg=black}
-\appto\bibfont{\small}\printbibliography
-\vspace{2.68ex}
+\appto\bibfont{\small}
+\printbibliography
+%\emph{Funding}\\
+%\small
+%This work was supported by Volkswagen Foundation (Lichtenberg 86 507); German Research Council (DFG MO 930/4-1, \emph{SFB 1089}); Seventh Framework Program (602102 EPITARGET).
 \end{column}
 \end{columns}
+\vspace{.9em}
 \end{block}
 
-\end{column}
+\end{column} % third poster column
 \end{columns}
 
+\begin{columns}[c]% this is the footer
+  \begin{column}{.3\linewidth} 
+    \includegraphics[width=\linewidth]{../figures/logo-vwstiftung.png}
+  \end{column}
+  \begin{column}{.3\linewidth}
+    \begin{centering}
+      \textit{
+     \hfill Lichtenberg Evaluation, Oct 12, 2017 \hfill}
+    \end{centering}
+  \end{column}
+  \begin{column}{.3\linewidth}
+    \raggedleft{\textit{
+    Contact:\\
+    \texttt{jonied@posteo.de}}}
+  \end{column}
+\end{columns}
 \end{frame}
 \end{document}
