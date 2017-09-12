@@ -1,0 +1,76 @@
+\ProvidesPackage{epiukbbonn}
+
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usepackage{setspace}
+\usetikzlibrary{shapes, positioning}
+
+\setbeamertemplate{navigation symbols}{}
+
+\newlength{\titleborder}
+\newlength{\bodyborder}
+\newlength{\seplinewidth}
+
+\definecolor{epiyellow}{HTML}{FFCB73}
+\definecolor{epilightblue}{HTML}{BAD7E9}
+\definecolor{epidarkblue}{HTML}{000080}
+\definecolor{epibgblue}{HTML}{DCEBF4}
+
+\setbeamertemplate{items}[square]
+\setbeamercolor{structure}{fg=epidarkblue, bg=}
+
+\setbeamertemplate{headline}{  
+
+\begin{columns}[c]
+\begin{column}{.85\linewidth}
+\setlength\lineskip{1.1ex}
+\begin{center}
+\huge{%
+\vskip2ex
+\textcolor{epidarkblue}{\textbf{\MakeUppercase\inserttitle}}
+}
+\vskip.5ex
+\setlength\lineskip{1ex}
+\color{epiyellow}
+\vskip.6ex
+\rule{\textwidth}{.4ex}
+\color{black}
+\vskip.1ex
+\LARGE{\textbf{\insertauthor}}
+\vskip.1ex
+\normalsize{\insertinstitute}
+\end{center}
+\end{column}
+
+\begin{column}{.1\linewidth}
+\vskip2ex
+\includegraphics[width=.75\linewidth]{../figures/logo-epi.png}
+\end{column}
+\end{columns}
+}
+
+\setbeamertemplate{block begin}{%
+\setlength{\titleborder}{.1em}%
+\setlength{\bodyborder}{.35em}%
+\setlength{\seplinewidth}{.4em}%
+\begin{tikzpicture}%
+\node [draw=epilightblue,
+       fill=epibgblue,
+       rectangle, 
+       text width=\textwidth-\titleborder, 
+       line width=\bodyborder] (inner box) \bgroup\begin{minipage}{\textwidth}\vskip3ex%
+}
+
+\setbeamertemplate{block end}{%
+\vspace{1ex}\end{minipage}\egroup;%
+\node [draw=epidarkblue, 
+       fill=epilightblue, 
+       text width=\textwidth, 
+       line width=\titleborder, 
+       text=epidarkblue, 
+       inner ysep = 2\bodyborder, 
+       inner xsep = .5em] [above = 0 cm of inner box] (title) {\textbf{\MakeUppercase\insertblocktitle}};
+\draw [line width = \seplinewidth, draw=epidarkblue] ([xshift=.5\bodyborder, yshift=-.45\seplinewidth] inner box.north west) -- ([xshift=-.5\bodyborder, yshift=-.45\seplinewidth] inner box.north east);%
+\end{tikzpicture}%
+\vspace{.5ex}
+}
