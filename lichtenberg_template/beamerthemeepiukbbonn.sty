@@ -19,33 +19,40 @@
 \setbeamertemplate{items}[square]
 \setbeamercolor{structure}{fg=epidarkblue, bg=}
 
-\setbeamertemplate{headline}{  
+\setbeamertemplate{headline}{
+  \huge{%
+    \vskip1ex
+  \begin{columns}[c]
+    \begin{column}{.05\linewidth}
 
-\begin{columns}[c]
-\begin{column}{.85\linewidth}
-\setlength\lineskip{1.1ex}
-\begin{center}
-\huge{%
-\vskip2ex
-\textcolor{epidarkblue}{\textbf{\MakeUppercase\inserttitle}}
+      {\fontsize{1.2cm}{1.5cm}\selectfont
+        \textcolor{epidarkblue}{
+      \textbf{\insertdate}}}
+     \end{column}
+     \begin{column}{.6\linewidth}
+        \begin{centering}
+      {\fontsize{.8cm}{1cm}\selectfont
+        \textcolor{epidarkblue}{\textbf{\hfil\MakeUppercase\inserttitle \hfil}}}
+      \end{centering}
+      \end{column}
+      \begin{column}{.1\linewidth}
+        \includegraphics[width=\linewidth]{../figures/logo-epi.png}
+      \end{column}
+    \end{columns}
 }
-\vskip.5ex
-\setlength\lineskip{1ex}
-\color{epiyellow}
-\vskip.6ex
-\rule{\textwidth}{.4ex}
-\color{black}
-\vskip.1ex
-\LARGE{\textbf{\insertauthor}}
-\vskip.1ex
-\normalsize{\insertinstitute}
-\end{center}
-\end{column}
-
-\begin{column}{.1\linewidth}
-\vskip2ex
-\includegraphics[width=.75\linewidth]{../figures/logo-epi.png}
-\end{column}
+  \begin{columns}[c]
+  \setlength\lineskip{1.1ex}
+  \begin{column}{\linewidth}
+      \vskip-2ex
+      \setlength\lineskip{1ex}
+      \LARGE{\textbf{\insertauthor}}
+      \color{epiyellow}
+      \vskip.3ex
+      \rule{\textwidth}{.6ex}
+      \color{black}
+      \vskip-.5ex
+      \normalsize{\insertinstitute}
+    \end{column}
 \end{columns}
 }
 
