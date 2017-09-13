@@ -21,7 +21,7 @@
 backend=biber,
 style=authoryear,
 maxnames=2,
-maxbibnames=4,
+maxbibnames=10,
 url=false,
 doi=false,
 isbn=false,
@@ -29,33 +29,43 @@ firstinits=true
 ]{biblatex}
 
 
- \renewbibmacro*{date+extrayear}{%
+
+\renewbibmacro*{date+extrayear}{%
      \iffieldundef{year}
        {}
        {\printtext[parens]{\printfield{labelyear}\printfield{extrayear}}}}%
 
-% \DeclareNameAlias{byeditor}{sortname}
-% % have last names first in all cases
-% \DeclareNameFormat{sortname}{%
-%    \ifuseprefix
-%      {\usebibmacro{name:last-first}{#1}{#4}{#5}{#8}}
-%      {\usebibmacro{name:last-first}{#1}{#4}{#6}{#8}}%
-%    \usebibmacro{name:andothers}}
- \renewbibmacro*{in:}{}
-% % Do not print numbers and eids
- \renewbibmacro*{volume+number+eid}{%
-   \printfield{volume}}
- % Do not print notes
- \renewbibmacro*{note+pages}{%
-   \setunit{\addcolon}%
-   \printfield{pages}%
-   \newunit}
-% % Do not decorate the title
- \DeclareFieldFormat[article,book,inbook,incollection]{title}{\textit{#1}}
- \DeclareFieldFormat{journaltitle}{#1}
- \DeclareFieldFormat[article]{pages}{#1}
- \DeclareListFormat{language}{}
- \DeclareFieldFormat{booktitle}{#1}
+     
+\renewbibmacro*{in:}{}
+
+% Do not print numbers and eids
+\renewbibmacro*{volume+number+eid}{%
+\printfield{volume}}
+
+% Do not print notes
+\renewbibmacro*{note+pages}{%
+\setunit{\addcolon}%
+\printfield{pages}%
+\newunit}
+% Do not decorate the title
+\DeclareFieldFormat[article,book,inbook,incollection]{title}{\textit{#1}}
+\DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat[article]{pages}{#1}
+\DeclareListFormat{language}{}
+\DeclareFieldFormat{booktitle}{#1}
+
+% Always show last name first
+\DeclareNameAlias{sortname}{last-first}
+
+% Remove comma after last name
+\renewcommand{\revsdnamepunct}{}
+
+% No dot after initial
+\renewcommand{\bibinitperiod}{}
+\renewcommand{\bibinitdelim}{}
+
+
+
 \addbibresource{poster.bib}
 
 \usecaptiontemplate{
