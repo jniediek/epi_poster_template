@@ -21,38 +21,37 @@
 
 \setbeamertemplate{headline}{
   \huge{%
-    \vskip1ex
+    \vskip.5ex
   \begin{columns}[c]
-    \begin{column}{.05\linewidth}
-
-      {\fontsize{1.2cm}{1.5cm}\selectfont
+    \begin{column}{.02\linewidth}
+      {\fontsize{1.2cm}{1.2cm}\selectfont
         \textcolor{epidarkblue}{
       \textbf{\insertdate}}}
      \end{column}
-     \begin{column}{.6\linewidth}
-        \begin{centering}
+     \begin{column}{.8\linewidth}
+       \begin{center}
+         \setlength\lineskip{1.2ex}
       {\fontsize{.8cm}{1cm}\selectfont
-        \textcolor{epidarkblue}{\textbf{\hfil\MakeUppercase\inserttitle \hfil}}}
-      \end{centering}
+        \textcolor{epidarkblue}{\textbf{\MakeUppercase\inserttitle}}}
+      \end{center}
       \end{column}
       \begin{column}{.1\linewidth}
         \includegraphics[width=\linewidth]{../figures/logo-epi.png}
       \end{column}
     \end{columns}
 }
-  \begin{columns}[c]
-  \setlength\lineskip{1.1ex}
+\begin{columns}[c]
   \begin{column}{\linewidth}
-      \vskip-2ex
       \setlength\lineskip{1ex}
+      \vskip-.5ex
       \LARGE{\textbf{\insertauthor}}
       \color{epiyellow}
-      \vskip.3ex
+      \vskip.1ex
       \rule{\textwidth}{.6ex}
       \color{black}
-      \vskip-.5ex
+      \vskip-.9ex
       \normalsize{\insertinstitute}
-    \end{column}
+  \end{column}
 \end{columns}
 }
 
