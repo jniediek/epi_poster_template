@@ -1,0 +1,79 @@
+\mode<presentation>
+
+% Requirement
+\RequirePackage{tikz}
+
+% Settings
+% \useinnertheme{epiukbonn}
+%\useoutertheme{texsx}
+%\usecolortheme{texsx}
+\definecolor{epibackground}{HTML}{000000}
+\definecolor{epiframecolor}{HTML}{00FFFF}
+\definecolor{epititlecolor}{HTML}{CCFF99}
+\definecolor{epitextcolor}{HTML}{EEEEEE}
+
+\setbeamertemplate{navigation symbols}{}
+% \setbeamertemplate{blocks}[rounded][shadow=true]
+
+
+\newlength{\frameshiftside}
+\newlength{\frameshiftbottom}
+\newlength{\frameshifttop}
+
+\setlength{\frameshifttop}{1.5cm}
+\setlength{\frameshiftside}{.4cm}
+\setlength{\frameshiftbottom}{.6cm}
+
+
+\setlength{\frameshifttop}{1.2cm}
+\setlength{\frameshiftside}{.6cm}
+\setlength{\frameshiftbottom}{.6cm}
+
+
+\setbeamercolor{background canvas}{bg=epibackground}
+\setbeamercolor{structure}{fg=epitextcolor}
+\setbeamercolor{normal text}{fg=epitextcolor}
+\setbeamercolor{items}{fg=epitextcolor}
+\beamersetleftmargin{.5cm}
+\beamersetrightmargin{.5cm}
+
+\setbeamertemplate{frametitle}{
+  \LARGE{
+    \vskip1ex
+ \textcolor{epititlecolor}{
+  \hfill \insertframetitle \hfill
+}}}
+
+\setbeamertemplate{background}{
+    \begin{tikzpicture}[overlay,remember picture]
+      \draw[epiframecolor] ([shift={(\frameshiftside,\frameshiftbottom)}]current page.south west)
+      rectangle ([shift={(-\frameshiftside,-\frameshifttop)}]current page.north east);
+\end{tikzpicture}
+  }
+
+
+% \setbeamertemplate{block begin}{%
+% \setlength{\titleborder}{.4em}%
+% \setlength{\bodyborder}{1pt}%
+% \setlength{\seplinewidth}{.4em}%
+% \begin{tikzpicture}%
+% \node [draw=epiframecolor,
+%        rectangle, 
+%        text width=\textwidth-\titleborder, 
+%        line width=\bodyborder] (inner box) \bgroup\begin{minipage}{\textwidth}\vskip.5ex%
+
+% }
+
+% \setbeamertemplate{block end}{%
+% \vspace{.5ex}\vspace{5em}\end{minipage}\egroup;%
+% % \node [draw=epidarkblue, 
+% %        fill=epilightblue, 
+% %        text width=\textwidth, 
+% %        line width=\titleborder, 
+% %        text=epidarkblue, 
+% %        inner ysep = 2\bodyborder, 
+% %        inner xsep = .5em] [above = 0 cm of inner box] (title) {\textbf{\MakeUppercase\insertblocktitle}};
+% % \draw [line width = \seplinewidth, draw=epidarkblue] ([xshift=.5\bodyborder, yshift=-.45\seplinewidth] inner box.north west) -- ([xshift=-.5\bodyborder, yshift=-.45\seplinewidth] inner box.north east);%
+% \end{tikzpicture}%
+% }
+\mode<all>
